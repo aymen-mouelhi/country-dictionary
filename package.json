@@ -6,6 +6,14 @@
   "scripts": {
     "test": "mocha"
   },
+  "homepage": "https://github.com/aymen-mouelhi/country-dictionary.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/aymen-mouelhi/country-dictionary.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aymen-mouelhi/country-dictionary/issues"
+  },
   "keywords": [
     "geocoding",
     "countries",
@@ -13,7 +21,6 @@
     "languages"
   ],
   "author": "Aymen Mouelhi <aymen.mouelhi@gmail.com> (https://github.com/aymen-mouelhi)",
-  "repository": "https://github.com/aymen-mouelhi/country-dictionary.git",
   "license": "MIT",
   "dependencies": {
     "request": "^2.69.0",
