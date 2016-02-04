@@ -14,7 +14,7 @@ $ npm install country-dictionary
 ### Example Code
 
 ```javascript
-
+var _ = require('underscore');
 var countryDict = require('country-dictionary')();
 
 // Set Google Maps Geocoding API Key if you would like to find a country from an address
