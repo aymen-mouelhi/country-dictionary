@@ -1,0 +1,26 @@
+{
+  "name": "country-dictionary",
+  "version": "1.0.0",
+  "description": "Get all the details you need about any country",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "geocoding",
+    "countries",
+    "currencies",
+    "languages"
+  ],
+  "author": "Aymen Mouelhi <aymen.mouelhi@gmail.com> (https://github.com/aymen-mouelhi)",
+  "repository": "https://github.com/aymen-mouelhi/country-dictionary.git",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.69.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  }
+}
