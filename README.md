@@ -23,7 +23,7 @@ countryDict.setGMapsAPIKey('<API Key>');
 // Or:
 var CountryDict = require('country-dictionary');
 
-var countryDict = new Workable({
+var countryDict = new CountryDict({
     GMapsApiKey: '<API Key>'
 });
 
