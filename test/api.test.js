@@ -35,9 +35,28 @@ describe("Country Dictionary API", function() {
         it("should check if country is in Europe", function() {
             var country = 'Egypt';
 
-            countryDict.inEurope(country, function(error, found){
-            	expect(found).to.equal(false);
+            countryDict.inEurope(country, function(error, found) {
+                expect(found).to.equal(false);
             });
+        });
+    });
+
+    // Get Country's capital
+    describe("Get country's capital", function() {
+        it("should get the country's capital", function() {
+            var country = 'Sweden';
+
+            expect(countryDict.getCapital(country)).to.equal('Stockholm');
+        });
+    });
+
+
+    // Get Country's spoken languages
+    describe("Get country's languages", function() {
+        it("should get the languages spoken in a country", function() {
+            var country = 'Nauru';
+
+            expect(countryDict.getLanguages(country)).to.deep.equal(['English', 'Nauruan']);
         });
     });
 });

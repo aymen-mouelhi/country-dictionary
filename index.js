@@ -39,6 +39,81 @@ CountryDictionary.prototype.getAllCountries = function() {
 
 
 /**
+ * Get country's capital
+ * @param  {[type]} country [description]
+ * @return {[type]}         [description]
+ */
+CountryDictionary.prototype.getCapital = function(country) {
+    country = this.getCountryByName(country);
+    // found?
+    if (country) {
+        return country.capital;
+    }
+};
+
+
+/**
+ * Get country's phoneIndex
+ * @param  {[type]} country [description]
+ * @return {[type]}         [description]
+ */
+CountryDictionary.prototype.getPhoneIndex = function(country) {
+    country = this.getCountryByName(country);
+    // found?
+    if (country) {
+        return country.phone;
+    }
+};
+
+
+/**
+ * Get country's currency
+ * @param  {[type]} country [description]
+ * @return {[type]}         [description]
+ */
+CountryDictionary.prototype.getCurrency = function(country) {
+    country = this.getCountryByName(country);
+    // found?
+    if (country) {
+        return country.currency;
+    }
+};
+
+/**
+ * Get country's spoken languages
+ * @param  {[type]} country [description]
+ * @return {[type]}         [description]
+ */
+CountryDictionary.prototype.getLanguages = function(country) {
+    country = this.getCountryByName(country);
+
+    var languagesList = [];
+    // found?
+    if (country) {
+
+        _.each(country.languages.split(','), function(language, i) {
+            languagesList.push(languages.getLanguageName(language))
+        });
+    }
+
+    return languagesList;
+};
+
+/**
+ * Get country's continent
+ * @param  {[type]} country [description]
+ * @return {[type]}         [description]
+ */
+CountryDictionary.prototype.getContinent = function(country) {
+    country = this.getCountryByName(country);
+    // found?
+    if (country) {
+        return country.continent;
+    }
+};
+
+
+/**
  * Get Country By Name
  * @param  {String} country Country's Name
  * @return {[type]}         [description]

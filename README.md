@@ -33,8 +33,20 @@ var countries = countryDict.getAllCountries();
 // get country by name
 var country = countryDict.getCountryByName('France');
 
-// get country by name
+// get country by Phone Index
 var country = countryDict.getCountryByPhoneIndex('49');
+
+// get country from a given address (Uses Google Maps Geocoding API)
+countryDict.getCountryByAddress('1600 Amphitheatre Pkwy, Mountain View', function(error, country){
+  console.log("Found Country: " + country)
+});
+
+// get country's capital
+var capital = countryDict.getCapital('Mexico');
+
+// get country's spoken languages  (Array)
+var languages = countryDict.getLanguages('Mexico');
+
 
 // get countries by language spoken
 countryDict.getCountriesByLanguage('arabic', function(error, countries){
