@@ -119,6 +119,11 @@ CountryDictionary.prototype.getContinent = function(country) {
  * @return {[type]}         [description]
  */
 CountryDictionary.prototype.getCountryByName = function(country) {
+    // to title case
+    country = country.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+
     return countries[_.indexOf(_.pluck(countries, 'name'), country)];
 };
 
