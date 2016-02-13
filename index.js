@@ -271,7 +271,20 @@ CountryDictionary.prototype.inEurope = function(address, callback) {
             }
         });
     }
+};
 
+CountryDictionary.prototype.inEuropeSync = function(country) {
+    var country = this.getCountryByName(country);
+
+    // Address is a country
+    if (country) {
+        if (country.continent === 'EU') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
 };
 
 /**
