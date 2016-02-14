@@ -24,13 +24,35 @@ describe("Country Dictionary API", function() {
     });
 
     // Get All countries
-    describe("Get Country By Name", function() {
+    describe("Get All Countries", function() {
         it("should return all countries", function() {
             expect(countryDict.getAllCountries().length).to.equal(countries.length);
         });
     });
 
-    // Get All countries
+    // Get All countries in a continent
+    describe("Get All Countries in Continent", function() {
+        it("should return all countries in a Continent", function() {
+            var contient = 'EU';
+
+            countryDict.getCountriesByContinent(contient, function(error, countries) {
+                expect(countries.length).to.equal(53);
+            })
+        });
+    });
+
+        // Get All countries having same currency
+    describe("Get All Countries in Continent", function() {
+        it("should return all countries in a Continent", function() {
+            var currency = 'EUR';
+
+            countryDict.getCountriesByCurrency(currency, function(error, countries) {
+                expect(countries.length).to.equal(34);
+            })
+        });
+    });
+
+    // Check Country is in Continent
     describe("Check Country is in Continent", function() {
         it("should check if country is in Europe", function() {
             var country = 'Egypt';
