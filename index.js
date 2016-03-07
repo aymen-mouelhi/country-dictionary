@@ -9,6 +9,8 @@ var CountryDictionary = function(opts) {
     opts = opts || {};
     // API key
     this.GMapsApiKey = opts.GMapsApiKey || '';
+    // MapBox API Key
+    this.MapBoxApiKey = opts.MapBoxApiKey || '';
 };
 
 
@@ -28,6 +30,15 @@ var createInstance = function(opts) {
 CountryDictionary.prototype.setGMapsAPIKey = function(key) {
     this.GMapsApiKey = key;
 };
+
+/**
+ * Set API Key for MapBox
+ * @param {[type]} key [description]
+ */
+CountryDictionary.prototype.setMapBoxAPIKey = function(key) {
+    this.MapBoxApiKey = key;
+};
+
 
 /**
  * Get All countries
@@ -165,20 +176,74 @@ CountryDictionary.prototype.getCountryByAddress = function(address, callback) {
             if (error) {
                 return callback(error);
             }
+            try {
+                if (JSON.parse(html).results[0]) {
+                    var data = JSON.parse(html).results[0].address_components;
 
-            if (JSON.parse(html).results[0]) {
-                var data = JSON.parse(html).results[0].address_components;
+                    _.each(_.pluck(data, 'types'), function(val, i) {
+                        if (val.indexOf('country') > -1) {
+                            var country = data[i].long_name;
+                            callback(null, self.getCountryByName(country));
+                        }
+                    });
+                } else {
+                    // check map box
+                    url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + '.json?access_token=' + this.MapBoxApiKey;
 
-                _.each(_.pluck(data, 'types'), function(val, i) {
-                    if (val.indexOf('country') > -1) {
-                        var country = data[i].long_name;
-                        callback(null, self.getCountryByName(country));
+                    request(url, function(error, response, html) {
+                        if (error) {
+                            return callback(error);
+                        } else {
+                            //console.info("mapbox html: " + html);
+                            if (html) {
+                                if (!JSON.parse(html).hasOwnProperty('message')) {
+                                    var data = JSON.parse(html).features[0];
+                                    if (data) {
+                                        _.each(data.context, function(context, i) {
+                                            if (context.id.indexOf('country') > -1) {
+                                                var country = context.text;
+                                                callback(null, self.getCountryByName(country));
+                                            }
+                                        });
+                                    } else {
+                                        callback("[MapBox] No results found for " + address);
+                                    }
+                                } else {
+                                    callback("[MapBox] No results found for " + address);
+                                }
+
+                            } else {
+                                callback("No results found for " + address);
+                            }
+
+                        }
+                    });
+                }
+            } catch (err) {
+                // check map box
+                url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + '.json?access_token=' + this.MapBoxApiKey;
+
+                request(url, function(error, response, html) {
+                    if (error) {
+                        return callback(error);
+                    } else {
+                        console.info("mapbox html: " + html);
+                        if (html) {
+                            var data = html.features[0];
+
+                            _.each(data.context, function(context, i) {
+                                if (context.id.indexOf('country') > -1) {
+                                    var country = context.text;
+                                    callback(null, self.getCountryByName(country));
+                                }
+                            });
+                        } else {
+                            callback("No results found for " + address);
+                        }
+
                     }
                 });
-            } else {
-                callback("No results found for " + address);
             }
-
         });
     }
 };
