@@ -229,14 +229,22 @@ CountryDictionary.prototype.getCountryByAddress = function(address, callback) {
                     } else {
                         console.info("mapbox html: " + html);
                         if (html) {
-                            var data = html.features[0];
-
-                            _.each(data.context, function(context, i) {
-                                if (context.id.indexOf('country') > -1) {
-                                    var country = context.text;
-                                    callback(null, self.getCountryByName(country));
+                            if (!JSON.parse(html).hasOwnProperty('message')) {
+                                var data = JSON.parse(html).features[0];
+                                if (data) {
+                                    _.each(data.context, function(context, i) {
+                                        if (context.id.indexOf('country') > -1) {
+                                            var country = context.text;
+                                            callback(null, self.getCountryByName(country));
+                                        }
+                                    });
+                                } else {
+                                    callback("[MapBox] No results found for " + address);
                                 }
-                            });
+                            } else {
+                                callback("[MapBox] No results found for " + address);
+                            }
+
                         } else {
                             callback("No results found for " + address);
                         }
