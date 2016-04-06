@@ -325,29 +325,33 @@ CountryDictionary.prototype.getCountriesByLanguage = function(language, callback
  * @return {[type]}            [description]
  */
 CountryDictionary.prototype.inEurope = function(address, callback) {
-    var country = this.getCountryByName(address);
+    if (address) {
+        var country = this.getCountryByName(address);
 
-    // Address is a country
-    if (country) {
-        if (country.continent === 'EU') {
-            return callback(null, true);
+        // Address is a country
+        if (country) {
+            if (country.continent === 'EU') {
+                return callback(null, true);
+            } else {
+                return callback(null, false);
+            }
         } else {
-            return callback(null, false);
+            // Get which country
+            this.getCountryByAddress(address, function(error, country) {
+                if (error) {
+                    callback(error);
+                } else {
+                    // Search the JSON
+                    if (country.continent === 'EU') {
+                        return callback(null, true);
+                    } else {
+                        callback(null, false);
+                    }
+                }
+            });
         }
     } else {
-        // Get which country
-        this.getCountryByAddress(address, function(error, country) {
-            if (error) {
-                callback(error);
-            } else {
-                // Search the JSON
-                if (country.continent === 'EU') {
-                    return callback(null, true);
-                } else {
-                    callback(null, false);
-                }
-            }
-        });
+        callback('Address shouldn\'t be empty');
     }
 };
 
