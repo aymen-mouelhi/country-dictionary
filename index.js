@@ -123,6 +123,19 @@ CountryDictionary.prototype.getContinent = function(country) {
     }
 };
 
+/**
+ * Get All cities in a country
+ * @param  {[type]}   country  [description]
+ * @param  {Function} callback [description]
+ * @return {[type]}            [description]
+ */
+CountryDictionary.prototype.getCities = function(country, callback) {
+    country = this.getCountryByName(country);
+    // found?
+    if (country) {
+        this._getCities(country, callback);
+    }
+};
 
 /**
  * Get Country By Name
