@@ -2,6 +2,7 @@ var _ = require('underscore');
 var request = require('request');
 var languages = require('language-list')();
 var countries = require('./data/countries.json');
+var freebase =  require('freebase');
 
 
 var CountryDictionary = function(opts) {
@@ -129,11 +130,28 @@ CountryDictionary.prototype.getContinent = function(country) {
  * @param  {Function} callback [description]
  * @return {[type]}            [description]
  */
-CountryDictionary.prototype.getCities = function(country, callback) {
+CountryDictionary.prototype.getCities = function(country, limit, callback) {
     country = this.getCountryByName(country);
+
+    limit = limit || 100;
+
     // found?
     if (country) {
-        this._getCities(country, callback);
+        // Get all countries having more than 10 000 inhabitants
+        var query = [{
+            "type": "/location/citytown",
+            "limit": limit,
+            "name": null,
+            "/location/statistical_region/population": [{
+                "number": null,
+                "number>": 100000
+            }],
+            "/location/location/containedby": country
+        }];
+
+        freebase.mqlread(query, {}, function(data) {
+            callback(null, data);
+        })
     }
 };
 
