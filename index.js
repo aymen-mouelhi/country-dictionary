@@ -131,16 +131,15 @@ CountryDictionary.prototype.getContinent = function(country) {
  * @return {[type]}            [description]
  */
 CountryDictionary.prototype.getCities = function(country, limit, callback) {
-    country = this.getCountryByName(country);
-
+    
     limit = limit || 100;
 
     // found?
-    if (country) {
+    if (this.getCountryByName(country)) {
         // Get all countries having more than 10 000 inhabitants
         var query = [{
             "type": "/location/citytown",
-            "limit": 10,
+            "limit": limit,
             "name": null,
             "/location/statistical_region/population": [{
                 "number": null,
