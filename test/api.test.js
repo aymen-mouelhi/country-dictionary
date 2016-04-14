@@ -81,4 +81,15 @@ describe("Country Dictionary API", function() {
             expect(countryDict.getLanguages(country)).to.deep.equal(['English', 'Nauruan']);
         });
     });
+
+    // Get Country's spoken languages
+    describe("Get France's cities", function() {
+        it("should return 20 French cities", function() {
+            var country = 'France';
+
+            countryDict.getCities('France', function(error, cities){
+                expect(cities.length).to.equal(20);
+            });
+        });
+    });
 });
