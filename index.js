@@ -156,6 +156,16 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
 };
 
 /**
+ * Get Cities using SPARQL
+ * @param  {[type]}   country  [description]
+ * @param  {Function} callback [description]
+ * @return {[type]}            [description]
+ */
+CountryDictionary.prototype._getCities - function(country, callback){
+
+}
+
+/**
  * Get Country By Name
  * @param  {String} country Country's Name
  * @return {[type]}         [description]
