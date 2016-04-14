@@ -149,7 +149,14 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
         }];
 
         freebase.mqlread(query, {}, function(data) {
-            callback(null, data);
+            if(data){
+                var cities = _.pluck(data.results, 'name');
+
+                callback(null, cities);
+            }else{
+                callback();
+            }
+            
         })
     }
 };
