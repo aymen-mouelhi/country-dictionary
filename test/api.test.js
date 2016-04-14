@@ -87,7 +87,7 @@ describe("Country Dictionary API", function() {
         it("should return 20 French cities", function() {
             var country = 'France';
 
-            countryDict.getCities('France', function(error, cities){
+            countryDict.getCities(country, 20, function(error, cities){
                 expect(cities.length).to.equal(20);
             });
         });
