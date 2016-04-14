@@ -140,7 +140,7 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
         // Get all countries having more than 10 000 inhabitants
         var query = [{
             "type": "/location/citytown",
-            "limit": limit,
+            "limit": 10,
             "name": null,
             "/location/statistical_region/population": [{
                 "number": null,
