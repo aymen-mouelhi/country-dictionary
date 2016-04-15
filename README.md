@@ -3,7 +3,7 @@
 
 > Node.JS Country Descriptor
 
-This modules allows you to grab information about any country.
+This modules allows you to grab information about any country (cities, languages spoken, phone index, ...etc).
 
 ### Installation
 
@@ -32,6 +32,11 @@ var countries = countryDict.getAllCountries();
 
 // get country by name
 var country = countryDict.getCountryByName('France');
+
+// Get 100 cities in a country
+countryDict.getCities('France', 100, function(error, cities){
+  console.log("Found Cities: " + JSON.stringify(cities));
+})
 
 // get country by Phone Index
 var country = countryDict.getCountryByPhoneIndex('49');

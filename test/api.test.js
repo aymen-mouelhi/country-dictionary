@@ -37,7 +37,7 @@ describe("Country Dictionary API", function() {
 
             countryDict.getCountriesByContinent(contient, function(error, countries) {
                 expect(countries.length).to.equal(53);
-            })
+            });
         });
     });
 
