@@ -2,7 +2,8 @@ var _ = require('underscore');
 var request = require('request');
 var languages = require('language-list')();
 var countries = require('./data/countries.json');
-var freebase =  require('freebase');
+var continents = require('./data/continents.json')
+var freebase = require('freebase');
 
 
 var CountryDictionary = function(opts) {
@@ -131,7 +132,7 @@ CountryDictionary.prototype.getContinent = function(country) {
  * @return {[type]}            [description]
  */
 CountryDictionary.prototype.getCities = function(country, limit, callback) {
-    
+
     limit = limit || 100;
 
     // found?
@@ -149,14 +150,14 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
         }];
 
         freebase.mqlread(query, {}, function(data) {
-            if(data){
+            if (data) {
                 var cities = _.pluck(data.result, 'name');
 
                 callback(null, cities);
-            }else{
+            } else {
                 callback();
             }
-            
+
         })
     }
 };
@@ -602,6 +603,15 @@ CountryDictionary.prototype.inAntarctica = function(address, callback) {
             }
         });
     }
+};
+
+
+CountryDictionary.prototype.getContinentCode = function(continent) {
+    if (_.indexOf(_.pluck(continents, 'name'), continent) > -1) {
+        return continents[_.indexOf(_.pluck(continents, 'name'), continent)].code;
+    }
+
+    return null;
 };
 
 module.exports = createInstance;
