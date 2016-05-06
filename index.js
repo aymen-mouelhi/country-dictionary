@@ -137,6 +137,7 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
 
     // found?
     if (this.getCountryByName(country)) {
+        // [Deprecated] Freebase API
         // Get all countries having more than 10 000 inhabitants
         var query = [{
             "type": "/location/citytown",
@@ -157,8 +158,7 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
             } else {
                 callback();
             }
-
-        })
+        });
     }
 };
 
