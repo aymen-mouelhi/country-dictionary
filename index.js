@@ -2,7 +2,8 @@ var _ = require('underscore');
 var request = require('request');
 var languages = require('language-list')();
 var countries = require('./data/countries.json');
-var continents = require('./data/continents.json')
+var continents = require('./data/continents.json');
+var cities = require('./data/cities.json');
 var freebase = require('freebase');
 
 
@@ -137,28 +138,10 @@ CountryDictionary.prototype.getCities = function(country, limit, callback) {
 
     // found?
     if (this.getCountryByName(country)) {
-        // [Deprecated] Freebase API
-        // Get all countries having more than 10 000 inhabitants
-        var query = [{
-            "type": "/location/citytown",
-            "limit": limit,
-            "name": null,
-            "/location/statistical_region/population": [{
-                "number": null,
-                "number>": 100000
-            }],
-            "/location/location/containedby": country
-        }];
-
-        freebase.mqlread(query, {}, function(data) {
-            if (data) {
-                var cities = _.pluck(data.result, 'name');
-
-                callback(null, cities);
-            } else {
-                callback();
-            }
-        });
+       var index = _.indexOf(_.pluck(cities, 'name'), country);
+       callback(null, cities[index].cities);
+    }else{
+        callback();
     }
 };
 
