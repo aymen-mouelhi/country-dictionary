@@ -1,9 +1,10 @@
 var _ = require('underscore');
 var request = require('request');
+var fs = require('fs');
 var languages = require('language-list')();
-var countries = require('./data/countries.json');
-var continents = require('./data/continents.json');
-var cities = require('./data/cities.json');
+var countries = JSON.parse(fs.readFileSync('./data/countries.json', 'utf8'));
+var continents = JSON.parse(fs.readFileSync('./data/continents.json', 'utf8'));
+var cities = JSON.parse(fs.readFileSync('./data/cities.json', 'utf8'));
 var freebase = require('freebase');
 
 
