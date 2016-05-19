@@ -84,11 +84,11 @@ describe("Country Dictionary API", function() {
 
     // Get Country's spoken languages
     describe("Get France's cities", function() {
-        it("should return 20 French cities", function() {
+        it("should return 13266 French cities", function() {
             var country = 'France';
 
-            countryDict.getCities(country, 20, function(error, cities){
-                expect(cities.length).to.equal(20);
+            countryDict.getCities(country, 1000, function(error, cities){
+                expect(cities.length).to.equal(13266);
             });
         });
     });
